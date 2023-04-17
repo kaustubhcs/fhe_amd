@@ -1,0 +1,4 @@
+Kernel: ntt
+Time taken: 9.0 us
+Time taken: 0.009000000000000001 ms
+All nodes computed

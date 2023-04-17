@@ -1,0 +1,4 @@
+Kernel: mod_down
+Time taken: 181.0 us
+Time taken: 0.181 ms
+All nodes computed

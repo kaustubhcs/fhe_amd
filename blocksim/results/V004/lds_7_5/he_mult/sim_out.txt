@@ -1,0 +1,4 @@
+Kernel: he_mult
+Time taken: 674.0 us
+Time taken: 0.674 ms
+All nodes computed

@@ -1,0 +1,4 @@
+Kernel: he_rescale
+Time taken: 69.4 us
+Time taken: 0.0694 ms
+All nodes computed

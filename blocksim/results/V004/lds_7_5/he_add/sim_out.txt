@@ -1,0 +1,4 @@
+Kernel: he_add
+Time taken: 19.0 us
+Time taken: 0.019 ms
+All nodes computed
