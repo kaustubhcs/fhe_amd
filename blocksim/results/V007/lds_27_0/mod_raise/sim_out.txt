@@ -1,0 +1,4 @@
+Kernel: mod_raise
+Time taken: 149.0 us
+Time taken: 0.149 ms
+All nodes computed

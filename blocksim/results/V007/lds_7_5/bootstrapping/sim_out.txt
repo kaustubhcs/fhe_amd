@@ -1,0 +1,4 @@
+Kernel: bootstrapping
+Time taken: 33638.9 us
+Time taken: 33.6389 ms
+All nodes computed

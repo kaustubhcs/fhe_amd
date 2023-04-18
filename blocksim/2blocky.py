@@ -126,6 +126,8 @@ lds_capacity = lds_capacity * 1024 # LDS capacity is in KB
 # %%
 # Config
 tick_res = 10.0 # 1000 ticks per microsecond
+if TEST_SWITCH > 9:
+    tick_res = 1.0
 
 list_of_kernels = ['ntt_32', 'intt_32', 'point_mult_32', 'scalar_mult_32', 'point_add_32',
                    'point_sub_32', 'rotate_32', 'ntt_64', 'intt_64', 'point_mult_64',
@@ -1246,34 +1248,34 @@ def sim_run(compute_graph, block_data):
 	computing_list = []
 	find_next_list = []
 	tick = 0
-	break_counter = 10000000
+	# break_counter = 10000000
 	ready_list.append(start_node)
 	total_nodes = len(compute_graph.nodes)
 	pbar = tqdm(total=total_nodes, desc='Simulation Progress', unit='nodes')
 	iter_completed_nodes = 0
-	schedule_time = 0
-	compute_time = 0
-	find_next_time = 0
+	# schedule_time = 0
+	# compute_time = 0
+	# find_next_time = 0
 	while True:
 		# print('Tick: ' + str(tick))
 		# print('Ready list: ' + str(ready_list))
 		# print('Computing list: ' + str(computing_list))
 		# print('Find next list: ' + str(find_next_list))
 		old_total_completed_nodes = total_completed_nodes
-		tic1 = time.perf_counter()
+		# tic1 = time.perf_counter()
 		compute_graph, ready_list, computing_list, find_next_list = schedule_compute(compute_graph, ready_list, computing_list, find_next_list, block_data)
-		tic2 = time.perf_counter()
+		# tic2 = time.perf_counter()
 		compute_graph, ready_list, computing_list, find_next_list = gpu_compute(compute_graph, ready_list, computing_list, find_next_list, block_data, tick)
-		tic3 = time.perf_counter()
+		# tic3 = time.perf_counter()
 		compute_graph, ready_list, computing_list, find_next_list = find_next(compute_graph, ready_list, computing_list, find_next_list, block_data)
-		tic4 = time.perf_counter()
-		schedule_time += tic2 - tic1
-		compute_time += tic3 - tic2
-		find_next_time += tic4 - tic3
+		# tic4 = time.perf_counter()
+		# schedule_time += tic2 - tic1
+		# compute_time += tic3 - tic2
+		# find_next_time += tic4 - tic3
 		iter_completed_nodes = total_completed_nodes - old_total_completed_nodes
 		pbar.update(iter_completed_nodes)
 		tick += 1
-		break_counter -= 1
+		# break_counter -= 1
 		# if tick % 100 == 0:
 		# 	print('Tick: ' + str(tick))
 		# 	print('Schedule time: ' + str(schedule_time))
@@ -1282,13 +1284,13 @@ def sim_run(compute_graph, block_data):
 		# 	print('Length of ready list: ' + str(len(ready_list)))
 		# 	print('Length of computing list: ' + str(len(computing_list)))
 		# 	print('Length of find next list: ' + str(len(find_next_list)))
-		if break_counter <= 0:
-			print('ERROR: Break counter reached')
-			print_uncomputed_nodes(compute_graph)
-			# with open(RESULT_FOLDER + '/sim_error.txt', 'w') as f:
-			# 	f.write('ERROR: Break counter reached')
-			# 	f.write(print_uncomputed_nodes(compute_graph))
-			break
+		# if break_counter <= 0:
+		# 	print('ERROR: Break counter reached')
+		# 	print_uncomputed_nodes(compute_graph)
+		# 	# with open(RESULT_FOLDER + '/sim_error.txt', 'w') as f:
+		# 	# 	f.write('ERROR: Break counter reached')
+		# 	# 	f.write(print_uncomputed_nodes(compute_graph))
+		# 	break
 		# If all 3 lists are empty, then break
 		if len(ready_list) == 0 and len(computing_list) == 0 and len(find_next_list) == 0:
 			break
@@ -1306,12 +1308,12 @@ def sim_run(compute_graph, block_data):
 	print('Simulator Time: ' + str(sim_time) + ' s')
 	uncomputed_nodes_text = print_uncomputed_nodes(compute_graph)
 	# Write to file time taken
-	# with open(RESULT_FOLDER + '/sim_out.txt', 'w') as f:
-	# 	kernel_name = get_test_name(TEST_SWITCH)
-	# 	f.write('Kernel: ' + kernel_name + '\n')
-	# 	f.write('Time taken: ' + str(tick * (1/tick_res)) + ' us\n')
-	# 	f.write('Time taken: ' + str(tick * (1/tick_res) * 1e-3) + ' ms\n')
-	# 	f.write(uncomputed_nodes_text + '\n')
+	with open(RESULT_FOLDER + '/sim_out.txt', 'w') as f:
+		kernel_name = get_test_name(TEST_SWITCH)
+		f.write('Kernel: ' + kernel_name + '\n')
+		f.write('Time taken: ' + str(tick * (1/tick_res)) + ' us\n')
+		f.write('Time taken: ' + str(tick * (1/tick_res) * 1e-3) + ' ms\n')
+		f.write(uncomputed_nodes_text + '\n')
 
 	
 
@@ -1472,7 +1474,7 @@ def plot_metrics_df(metrics_df):
     # Show plot
     plt.show()
     # Save plot as PDF
-    # fig.savefig(RESULT_FOLDER + '/metrics.pdf', bbox_inches='tight')
+    fig.savefig(RESULT_FOLDER + '/metrics.pdf', bbox_inches='tight')
 
 
 

@@ -1,0 +1,4 @@
+Kernel: resnet20
+Time taken: 340198.0 us
+Time taken: 340.198 ms
+All nodes computed

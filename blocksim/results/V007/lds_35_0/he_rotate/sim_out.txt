@@ -1,0 +1,4 @@
+Kernel: he_rotate
+Time taken: 362.1 us
+Time taken: 0.36210000000000003 ms
+All nodes computed

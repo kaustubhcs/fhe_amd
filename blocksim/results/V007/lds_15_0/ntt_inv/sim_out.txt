@@ -1,0 +1,4 @@
+Kernel: ntt_inv
+Time taken: 7.4 us
+Time taken: 0.0074 ms
+All nodes computed

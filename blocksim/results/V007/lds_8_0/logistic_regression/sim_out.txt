@@ -1,0 +1,4 @@
+Kernel: logistic_regression
+Time taken: 545797.0 us
+Time taken: 545.797 ms
+All nodes computed
